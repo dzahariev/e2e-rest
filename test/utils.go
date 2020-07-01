@@ -1,7 +1,6 @@
 package test
 
 import (
-	"log"
 	"os"
 
 	"github.com/dzahariev/e2e-rest/api/model"
@@ -66,7 +65,6 @@ func RecreateTables(DB *gorm.DB) error {
 	if err != nil {
 		return err
 	}
-	log.Printf("All tables recreated!")
 	return nil
 }
 
