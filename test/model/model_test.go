@@ -292,11 +292,11 @@ var _ = Describe("Tests configuration", func() {
 		err := test.LoadEnvironment()
 		Expect(err).ShouldNot(HaveOccurred())
 
-		dbUser := os.Getenv("TEST_DB_USER")
-		dbPassword := os.Getenv("TEST_DB_PASSWORD")
-		dbPort := os.Getenv("TEST_DB_PORT")
-		dbHost := os.Getenv("TEST_DB_HOST")
-		dbName := os.Getenv("TEST_DB_NAME")
+		dbUser := os.Getenv("TEST_POSTGRES_USER")
+		dbPassword := os.Getenv("TEST_POSTGRES_PASSWORD")
+		dbPort := os.Getenv("TEST_POSTGRES_PORT")
+		dbHost := os.Getenv("TEST_POSTGRES_HOST")
+		dbName := os.Getenv("TEST_POSTGRES_DB")
 
 		server.DBInitialize(dbUser, dbPassword, dbPort, dbHost, dbName)
 	})
