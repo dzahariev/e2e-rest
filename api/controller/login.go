@@ -30,7 +30,7 @@ func (server *Server) LogIn(w http.ResponseWriter, r *http.Request) {
 		response.ERROR(w, http.StatusUnprocessableEntity, err)
 		return
 	}
-	token, err := server.getTokenForUser(user.Email, user.Password)
+	token, err := server.GetTokenForUser(user.Email, user.Password)
 	if err != nil {
 		if err == bcrypt.ErrMismatchedHashAndPassword {
 			response.ERROR(w, http.StatusUnauthorized, err)
@@ -42,7 +42,8 @@ func (server *Server) LogIn(w http.ResponseWriter, r *http.Request) {
 	response.JSON(w, http.StatusOK, token)
 }
 
-func (server *Server) getTokenForUser(email, password string) (token string, err error) {
+// GetTokenForUser returns a token for the user
+func (server *Server) GetTokenForUser(email, password string) (token string, err error) {
 	user := model.User{}
 	err = server.DB.Model(model.User{}).Where("email = ?", email).Take(&user).Error
 	if err != nil {
