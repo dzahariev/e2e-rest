@@ -1,6 +1,8 @@
 package test
 
 import (
+	"fmt"
+	"log"
 	"os"
 
 	"github.com/dzahariev/e2e-rest/api/model"
@@ -9,18 +11,49 @@ import (
 	"github.com/joho/godotenv"
 )
 
-const (
-	idUser          = "ef2c105a-93fc-4599-bcfa-a10fff709100"
-	idUser2         = "ef2c105a-93fc-4599-bcfa-a10fff709101"
-	idEvent         = "ef2c105a-93fc-4599-bcfa-a10fff709102"
-	idEvent2        = "ef2c105a-93fc-4599-bcfa-a10fff709103"
-	idSession       = "ef2c105a-93fc-4599-bcfa-a10fff709104"
-	idSession2      = "ef2c105a-93fc-4599-bcfa-a10fff709105"
-	idSubscription  = "ef2c105a-93fc-4599-bcfa-a10fff709106"
-	idSubscription2 = "ef2c105a-93fc-4599-bcfa-a10fff709107"
-	idComment       = "ef2c105a-93fc-4599-bcfa-a10fff709108"
-	idComment2      = "ef2c105a-93fc-4599-bcfa-a10fff709109"
-)
+// EntityType represent abstraction for the diferent entities
+type EntityType struct {
+	Name       string
+	Entity     model.Object
+	NewEntity  model.Object
+	NewEntity1 model.Object
+}
+
+// CreateDB creates the database
+func CreateDB(DB *gorm.DB, dbUser, dbPassword, dbPort, dbHost, dbName string) error {
+	DBURL := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, dbUser, "postgres", dbPassword)
+	DB, err := gorm.Open("postgres", DBURL)
+	defer DB.Close()
+	if err != nil {
+		log.Printf("Unable to conect DB %s", dbName)
+		return err
+	}
+	statement := fmt.Sprintf("CREATE DATABASE %s;", dbName)
+	DB = DB.Exec(statement)
+	if DB.Error != nil {
+		log.Printf("Unable to create DB %s with error %v", dbName, err)
+		return err
+	}
+	return nil
+}
+
+// DropDB drops the database
+func DropDB(DB *gorm.DB, dbUser, dbPassword, dbPort, dbHost, dbName string) error {
+	DBURL := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, dbUser, "postgres", dbPassword)
+	DB, err := gorm.Open("postgres", DBURL)
+	defer DB.Close()
+	if err != nil {
+		log.Printf("Unable to conect DB %s	", dbName)
+		return err
+	}
+	statement := fmt.Sprintf("DROP DATABASE IF EXISTS %s;", dbName)
+	DB = DB.Exec(statement)
+	if DB.Error != nil {
+		log.Printf("Unable to drop the DB %s", dbName)
+		return err
+	}
+	return nil
+}
 
 // RecreateTables recreates the tables in database
 func RecreateTables(DB *gorm.DB) error {
@@ -77,62 +110,8 @@ func LoadEnvironment() error {
 	return nil
 }
 
-// GetUserID returns an ID
-func GetUserID() uuid.UUID {
-	ID, _ := uuid.FromString(idUser)
-	return ID
-}
-
-// GetUserID2 returns an ID
-func GetUserID2() uuid.UUID {
-	ID, _ := uuid.FromString(idUser2)
-	return ID
-}
-
-// GetEventID returns an ID
-func GetEventID() uuid.UUID {
-	ID, _ := uuid.FromString(idEvent)
-	return ID
-}
-
-// GetEventID2 returns an ID
-func GetEventID2() uuid.UUID {
-	ID, _ := uuid.FromString(idEvent2)
-	return ID
-}
-
-// GetSessionID returns an ID
-func GetSessionID() uuid.UUID {
-	ID, _ := uuid.FromString(idSession)
-	return ID
-}
-
-// GetSessionID2 returns an ID
-func GetSessionID2() uuid.UUID {
-	ID, _ := uuid.FromString(idSession2)
-	return ID
-}
-
-// GetSubscriptionID returns an ID
-func GetSubscriptionID() uuid.UUID {
-	ID, _ := uuid.FromString(idSubscription)
-	return ID
-}
-
-// GetSubscriptionID2 returns an ID
-func GetSubscriptionID2() uuid.UUID {
-	ID, _ := uuid.FromString(idSubscription2)
-	return ID
-}
-
-// GetCommentID returns an ID
-func GetCommentID() uuid.UUID {
-	ID, _ := uuid.FromString(idComment)
-	return ID
-}
-
-// GetCommentID2 returns an ID
-func GetCommentID2() uuid.UUID {
-	ID, _ := uuid.FromString(idComment2)
+// GetID returns an ID
+func GetID() uuid.UUID {
+	ID, _ := uuid.NewV4()
 	return ID
 }

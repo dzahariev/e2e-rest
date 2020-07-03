@@ -3,12 +3,13 @@ package modeltests
 import (
 	"fmt"
 	"os"
+	"strings"
 	"testing"
 	"time"
 
 	"github.com/dzahariev/e2e-rest/api/controller"
 	"github.com/dzahariev/e2e-rest/api/model"
-	"github.com/dzahariev/e2e-rest/test"
+	. "github.com/dzahariev/e2e-rest/test"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
@@ -19,15 +20,21 @@ func TestModel(t *testing.T) {
 	RunSpecs(t, "Model Suite")
 }
 
-type EntityType struct {
-	Name       string
-	Entity     model.Object
-	NewEntity  model.Object
-	NewEntity1 model.Object
-}
-
 var _ = Describe("Tests configuration", func() {
-	var server = controller.Server{}
+	var (
+		server          = controller.Server{}
+		dbName          = fmt.Sprintf("mod_%s", strings.ReplaceAll(GetID().String(), "-", ""))
+		user1ID         = GetID()
+		user2ID         = GetID()
+		event1ID        = GetID()
+		event2ID        = GetID()
+		session1ID      = GetID()
+		session2ID      = GetID()
+		subscription1ID = GetID()
+		subscription2ID = GetID()
+		comment1ID      = GetID()
+		comment2ID      = GetID()
+	)
 
 	// User
 	userEntityType := EntityType{
@@ -35,7 +42,7 @@ var _ = Describe("Tests configuration", func() {
 		Entity: &model.User{},
 		NewEntity: &model.User{
 			Base: model.Base{
-				ID: test.GetUserID(),
+				ID: user1ID,
 			},
 			Name:     "Joe Satriani",
 			Email:    "joe.satriani@mymail.local",
@@ -43,7 +50,7 @@ var _ = Describe("Tests configuration", func() {
 		},
 		NewEntity1: &model.User{
 			Base: model.Base{
-				ID: test.GetUserID2(),
+				ID: user2ID,
 			},
 			Name:     "John Smith",
 			Email:    "john.smith@mymail.local",
@@ -57,14 +64,14 @@ var _ = Describe("Tests configuration", func() {
 		Entity: &model.Event{},
 		NewEntity: &model.Event{
 			Base: model.Base{
-				ID: test.GetEventID(),
+				ID: event1ID,
 			},
 			Name: "Winter Summit",
 			Year: "2020",
 		},
 		NewEntity1: &model.Event{
 			Base: model.Base{
-				ID: test.GetEventID2(),
+				ID: event2ID,
 			},
 			Name: "Summer Summit",
 			Year: "2020",
@@ -77,49 +84,49 @@ var _ = Describe("Tests configuration", func() {
 		Entity: &model.Session{},
 		NewEntity: &model.Session{
 			Base: model.Base{
-				ID: test.GetSessionID(),
+				ID: session1ID,
 			},
 			Name: "Main theme",
 			User: model.User{
 				Base: model.Base{
-					ID: test.GetUserID(),
+					ID: user1ID,
 				},
 				Name:     "Joe Satriani",
 				Email:    "joe.satriani@mymail.local",
 				Password: "secret007",
 			},
-			UserID: test.GetUserID(),
+			UserID: user1ID,
 			Event: model.Event{
 				Base: model.Base{
-					ID: test.GetEventID(),
+					ID: event1ID,
 				},
 				Name: "Winter Summit",
 				Year: "2020",
 			},
-			EventID: test.GetEventID(),
+			EventID: event1ID,
 		},
 		NewEntity1: &model.Session{
 			Base: model.Base{
-				ID: test.GetSessionID2(),
+				ID: session2ID,
 			},
 			Name: "Main theme 2",
 			User: model.User{
 				Base: model.Base{
-					ID: test.GetUserID(),
+					ID: user1ID,
 				},
 				Name:     "Joe Satriani",
 				Email:    "joe.satriani@mymail.local",
 				Password: "secret007",
 			},
-			UserID: test.GetUserID(),
+			UserID: user1ID,
 			Event: model.Event{
 				Base: model.Base{
-					ID: test.GetEventID(),
+					ID: event1ID,
 				},
 				Name: "Winter Summit",
 				Year: "2020",
 			},
-			EventID: test.GetEventID()},
+			EventID: event1ID},
 	}
 
 	// Subscription
@@ -128,79 +135,79 @@ var _ = Describe("Tests configuration", func() {
 		Entity: &model.Subscription{},
 		NewEntity: &model.Subscription{
 			Base: model.Base{
-				ID: test.GetSubscriptionID(),
+				ID: subscription1ID,
 			},
 			User: model.User{
 				Base: model.Base{
-					ID: test.GetUserID(),
+					ID: user1ID,
 				},
 				Name:     "Joe Satriani",
 				Email:    "joe.satriani@mymail.local",
 				Password: "secret007",
 			},
-			UserID: test.GetUserID(),
+			UserID: user1ID,
 			Session: model.Session{
 				Base: model.Base{
-					ID: test.GetSessionID(),
+					ID: session1ID,
 				},
 				Name: "Main theme",
 				User: model.User{
 					Base: model.Base{
-						ID: test.GetUserID(),
+						ID: user1ID,
 					},
 					Name:     "Joe Satriani",
 					Email:    "joe.satriani@mymail.local",
 					Password: "secret007",
 				},
-				UserID: test.GetUserID(),
+				UserID: user1ID,
 				Event: model.Event{
 					Base: model.Base{
-						ID: test.GetEventID(),
+						ID: event1ID,
 					},
 					Name: "Winter Summit",
 					Year: "2020",
 				},
-				EventID: test.GetEventID(),
+				EventID: event1ID,
 			},
-			SessionID: test.GetSessionID(),
+			SessionID: session1ID,
 		},
 		NewEntity1: &model.Subscription{
 			Base: model.Base{
-				ID: test.GetSubscriptionID2(),
+				ID: subscription2ID,
 			},
 			User: model.User{
 				Base: model.Base{
-					ID: test.GetUserID(),
+					ID: user1ID,
 				},
 				Name:     "Joe Satriani",
 				Email:    "joe.satriani@mymail.local",
 				Password: "secret007",
 			},
-			UserID: test.GetUserID(),
+			UserID: user1ID,
 			Session: model.Session{
 				Base: model.Base{
-					ID: test.GetSessionID(),
+					ID: session1ID,
 				},
 				Name: "Main theme",
 				User: model.User{
 					Base: model.Base{
-						ID: test.GetUserID(),
+						ID: user1ID,
 					},
 					Name:     "Joe Satriani",
 					Email:    "joe.satriani@mymail.local",
 					Password: "secret007",
 				},
-				UserID: test.GetUserID(),
+				UserID: user1ID,
 				Event: model.Event{
 					Base: model.Base{
-						ID: test.GetEventID(),
+						ID: event1ID,
 					},
 					Name: "Winter Summit",
 					Year: "2020",
 				},
-				EventID: test.GetEventID(),
+				EventID: event1ID,
 			},
-			SessionID: test.GetSessionID(),
+			SessionID: session1ID,
 		},
 	}
 
@@ -210,99 +217,111 @@ var _ = Describe("Tests configuration", func() {
 		Entity: &model.Comment{},
 		NewEntity: &model.Comment{
 			Base: model.Base{
-				ID: test.GetCommentID(),
+				ID: comment1ID,
 			},
 			Message: "Special comment!",
 			User: model.User{
 				Base: model.Base{
-					ID: test.GetUserID(),
+					ID: user1ID,
 				},
 				Name:     "Joe Satriani",
 				Email:    "joe.satriani@mymail.local",
 				Password: "secret007",
 			},
-			UserID: test.GetUserID(),
+			UserID: user1ID,
 			Session: model.Session{
 				Base: model.Base{
-					ID: test.GetSessionID(),
+					ID: session1ID,
 				},
 				Name: "Main theme",
 				User: model.User{
 					Base: model.Base{
-						ID: test.GetUserID(),
+						ID: user1ID,
 					},
 					Name:     "Joe Satriani",
 					Email:    "joe.satriani@mymail.local",
 					Password: "secret007",
 				},
-				UserID: test.GetUserID(),
+				UserID: user1ID,
 				Event: model.Event{
 					Base: model.Base{
-						ID: test.GetEventID(),
+						ID: event1ID,
 					},
 					Name: "Winter Summit",
 					Year: "2020",
 				},
-				EventID: test.GetEventID(),
+				EventID: event1ID,
 			},
-			SessionID: test.GetSessionID(),
+			SessionID: session1ID,
 		},
 		NewEntity1: &model.Comment{
 			Base: model.Base{
-				ID: test.GetCommentID2(),
+				ID: comment2ID,
 			},
 			Message: "Special comment!",
 			User: model.User{
 				Base: model.Base{
-					ID: test.GetUserID(),
+					ID: user1ID,
 				},
 				Name:     "Joe Satriani",
 				Email:    "joe.satriani@mymail.local",
 				Password: "secret007",
 			},
-			UserID: test.GetUserID(),
+			UserID: user1ID,
 			Session: model.Session{
 				Base: model.Base{
-					ID: test.GetSessionID(),
+					ID: session1ID,
 				},
 				Name: "Main theme",
 				User: model.User{
 					Base: model.Base{
-						ID: test.GetUserID(),
+						ID: user1ID,
 					},
 					Name:     "Joe Satriani",
 					Email:    "joe.satriani@mymail.local",
 					Password: "secret007",
 				},
-				UserID: test.GetUserID(),
+				UserID: user1ID,
 				Event: model.Event{
 					Base: model.Base{
-						ID: test.GetEventID(),
+						ID: event1ID,
 					},
 					Name: "Winter Summit",
 					Year: "2020",
 				},
-				EventID: test.GetEventID(),
+				EventID: event1ID,
 			},
-			SessionID: test.GetSessionID(),
+			SessionID: session1ID,
 		},
 	}
 
 	BeforeSuite(func() {
-		err := test.LoadEnvironment()
+		err := LoadEnvironment()
 		Expect(err).ShouldNot(HaveOccurred())
 
 		dbUser := os.Getenv("TEST_POSTGRES_USER")
 		dbPassword := os.Getenv("TEST_POSTGRES_PASSWORD")
 		dbPort := os.Getenv("TEST_POSTGRES_PORT")
 		dbHost := os.Getenv("TEST_POSTGRES_HOST")
-		dbName := os.Getenv("TEST_POSTGRES_DB")
 
+		err = CreateDB(server.DB, dbUser, dbPassword, dbPort, dbHost, dbName)
+		Expect(err).ShouldNot(HaveOccurred())
 		server.DBInitialize(dbUser, dbPassword, dbPort, dbHost, dbName)
 	})
 
+	AfterSuite(func() {
+		dbUser := os.Getenv("TEST_POSTGRES_USER")
+		dbPassword := os.Getenv("TEST_POSTGRES_PASSWORD")
+		dbPort := os.Getenv("TEST_POSTGRES_PORT")
+		dbHost := os.Getenv("TEST_POSTGRES_HOST")
+
+		server.DB.Close()
+		err := DropDB(server.DB, dbUser, dbPassword, dbPort, dbHost, dbName)
+		Expect(err).ShouldNot(HaveOccurred())
+	})
+
 	BeforeEach(func() {
-		err := test.RecreateTables(server.DB)
+		err := RecreateTables(server.DB)
 		Expect(err).ShouldNot(HaveOccurred())
 	})
 
