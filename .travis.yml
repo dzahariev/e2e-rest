@@ -1,0 +1,16 @@
+language: go
+
+go:
+    - 1.14.x
+
+services:
+  - postgresql
+
+env:
+  - GO111MODULE=on
+
+script:
+  - make build  
+  - make clean  
+  - make local-e2e-test 
+
