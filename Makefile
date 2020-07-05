@@ -1,6 +1,6 @@
 APP_NAME=e2e-rest
 
-all: clean build 
+all: build 
 
 build: clean 
 	@echo "----------------------------------------------------------" 
