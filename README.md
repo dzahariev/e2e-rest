@@ -1,4 +1,7 @@
 # e2e-rest
+
+[![Build Status](https://travis-ci.org/dzahariev/e2e-rest.svg?branch=master)](https://travis-ci.org/dzahariev/e2e-rest)
+
 End to end sample application implemented in Go using REST APIs and PostgreSQL for persistency
 
 # Used libraries
