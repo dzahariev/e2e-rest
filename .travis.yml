@@ -6,11 +6,15 @@ go:
 services:
   - postgresql
 
-env:
+install:
+  - go get golang.org/x/tools/cmd/cover
+  - go get github.com/mattn/goveralls
+
+  env:
   - GO111MODULE=on
 
 script:
   - make build  
   - make clean  
   - make local-e2e-test 
-
+  - goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN

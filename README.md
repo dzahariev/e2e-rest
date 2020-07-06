@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/dzahariev/e2e-rest.svg?branch=master)](https://travis-ci.org/dzahariev/e2e-rest)
 
+[![Coverage Status](https://coveralls.io/repos/github/dzahariev/e2e-rest/badge.svg?branch=master)](https://coveralls.io/github/dzahariev/e2e-rest?branch=master)
+
 End to end sample application implemented in Go using REST APIs and PostgreSQL for persistency
 
 # Used libraries

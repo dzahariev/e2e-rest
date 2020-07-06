@@ -19,7 +19,7 @@ local-e2e-test:
 	@echo "----------------------------------------------------------" 
 	@echo "Executing tests. Postgre SQL should be started in advance." 
 	@echo "----------------------------------------------------------" 
-	@go test -v ./...
+	@go test -v -coverpkg $(shell go list ./... | egrep -v "test" | paste -sd "," -) ./... -coverprofile=coverage.out -covermode=atomic
 
 .PHONY: e2e-test
 e2e-test:
@@ -53,8 +53,7 @@ clean:
 	@echo "Cleaning" 
 	@echo "----------------------------------------------------------" 
 	@go clean
-	@rm -f results.json
-	@rm -f coverage.txt
+	@rm -f coverage.out
 	@rm -fr bin
 
 docker: 
