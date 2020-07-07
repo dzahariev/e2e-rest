@@ -1,6 +1,6 @@
 # e2e-rest
 
-[![Build Status](https://travis-ci.org/dzahariev/e2e-rest.svg?branch=master)](https://travis-ci.org/dzahariev/e2e-rest) [![Coverage Status](https://coveralls.io/repos/github/dzahariev/e2e-rest/badge.svg?branch=master)](https://coveralls.io/github/dzahariev/e2e-rest?branch=master) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Go Report Card](https://goreportcard.com/badge/github.com/dzahariev/e2e-rest)](https://goreportcard.com/report/github.com/dzahariev/e2e-rest) [![Docker Hub](https://img.shields.io/badge/docker-ready-blue.svg)](https://registry.hub.docker.com/repository/docker/dzahariev/e2e-rest)
+[![Build Status](https://travis-ci.org/dzahariev/e2e-rest.svg?branch=master)](https://travis-ci.org/dzahariev/e2e-rest) [![Coverage Status](https://coveralls.io/repos/github/dzahariev/e2e-rest/badge.svg?branch=master)](https://coveralls.io/github/dzahariev/e2e-rest?branch=master) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Go Report Card](https://goreportcard.com/badge/github.com/dzahariev/e2e-rest)](https://goreportcard.com/report/github.com/dzahariev/e2e-rest) [![Docker Hub](https://img.shields.io/badge/docker-ready-blue.svg)](https://registry.hub.docker.com/repository/docker/dzahariev/e2e-rest) ![Go](https://github.com/dzahariev/e2e-rest/workflows/Go/badge.svg)
 
 End to end sample application implemented in Go using REST APIs and PostgreSQL for persistency
 
