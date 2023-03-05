@@ -5,7 +5,6 @@ pipeline {
         go 'go1.20.1'
     }
     environment {
-        APP_NAME = "e2e-rest"
         CGO_ENABLED = 0 
         GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
     }
@@ -20,7 +19,7 @@ pipeline {
         stage("build") {
             steps {
                 echo 'Build step started ...'
-                sh 'go build -o bin/$(APP_NAME)'
+                sh 'go build -o bin/e2e-rest'
             }
         }
         stage("clean") {
